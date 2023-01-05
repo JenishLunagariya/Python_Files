@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index Page Hai</title>
+</head>
+<body>
+    <center><h1>Welcome! {{name}}</h1>
+    <p>Enter your text below</p>
+    <form action="/analyze" method="get">
+        <textarea name="text" id="text" cols="100" rows="10"></textarea>
+        <br>
+        <input type="checkbox" name="removepunc">Remove Punctuation<br>
+        <br>
+        <input type="checkbox" name="fullcaps">UPPERCASE<br>
+        <br>
+        <input type="checkbox" name="extraspaceremover">Remove Extra Space<br>
+        <br>
+        <button type="submit">Analyze Text</button>
+    </form>
+    </center>
+
+</body>
+</html>
