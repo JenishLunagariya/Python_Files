@@ -72,16 +72,44 @@ class LinkedListCS:
             node = Node(data)
             node.next = current.next
             current.next = node
+    def insertAtPos(self,position,data):
+        if self.tail == None:
+            self.insertAtTail(data)
+            return
+        else:
+            cnt = 1
+            previous = self.tail
+            current = self.tail.next
+            while cnt<position:
+                if current==self.tail:
+                    '''when pos > len, insert node to tail'''
+                    self.insertAtTail(data)
+                    return
+                cnt+=1
+                previous = previous.next
+                current = current.next
+            node = Node(data)
+            previous.next = node
+            node.next = current
+            return
     def deleteNodewithData(self,target_data):
         if self.tail == None:
-            return "LinkedList is empty"
-        elif self.tail.next == self.tail:
-            self.tail = None
+            print("LinkedList is empty")
             return
+        elif self.tail.next == self.tail:
+            if self.tail.data == target_data:
+                self.tail = None
+                return
+            else:
+                print("No matching Data")
+                return
         else:
             prev = self.tail
             curr = self.tail.next
             while curr.data != target_data:
+                if curr == self.tail:
+                    print("No match found")
+                    return
                 prev = prev.next
                 curr = curr.next
             prev.next = curr.next
@@ -90,17 +118,41 @@ class LinkedListCS:
             curr.next = None
             del curr
             return
+    def deleteNodewithPos(self,position):
+        if self.tail == None:
+            print("LinkedList is empty")
+            return
+        elif self.tail == self.tail.next:
+            self.tail = None
+            return
+        else:
+            prev = self.tail
+            curr = self.tail.next
+            cnt=1
+            while cnt<position:
+                prev = prev.next
+                curr = curr.next
+                cnt+=1
+                if prev == self.tail:
+                    print("Position Out of Bound")
+                    return
+            if curr == self.tail:
+                self.tail = prev
+            prev.next = curr.next
+            curr.next = None
+            del curr
+            return
+        
 # lc = LinkedListCS(["a","b","c"])
-lc = LinkedListCS([1,2,3,4])
-print(lc)
+lc = LinkedListCS([1,2,3,4,5,6])
+# print(lc)
 # lc.insertAtTail(5)
 # lc.insertAtNode(2,22)
 # lc.deleteNodewithData(22)
-# lc.deleteNodewithData(5)
-# print(lc)
-# print("tail: ",lc.tail)
-# print("Head: ",lc.tail.next)
-# print("len: ",len(lc))
-
-
-
+lc.deleteNodewithPos(7)
+# lc.insertAtPos(6,5)
+print(lc)
+print("Head: ",lc.tail.next)
+print("tail: ",lc.tail)
+print(lc.tail.next.next.next.next.next.next)
+print("len: ",len(lc))
