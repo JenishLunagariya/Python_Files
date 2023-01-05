@@ -72,14 +72,51 @@ class LinkedListCD:
             self.insertAtTail(data)
             return
         else:
-            pass
+            previous = self.tail
+            current = self.tail.next
+            while current.data != element:
+                previous = previous.next
+                current = current.next
+            if current == self.tail:
+                self.insertAtTail(data)
+                return
+            # new node
+            node = Node(data)
+            previous.next = node
+            node.prev = previous
+            node.next = current
+            current.prev = node
+    def deleteNodewithData(self,target_data):
+        if self.tail == None:
+            return self
+        elif self.tail.next == self.tail:
+            self.tail = None
+            return
+        else:
+            previous = self.tail
+            current = self.tail.next
+            while current.data != target_data:
+                previous = previous.next
+                current = current.next
+            later = current.next
+            previous.next = later
+            if current ==self.tail:
+                self.tail = previous
+            later.prev = previous
+            current.next = None
+            current.prev = None
+            del current
+            return
 
-lc = LinkedListCD()
-lc.insertAtTail(1)
-lc.insertAtTail(2)
+lc = LinkedListCD([1,3,4,5,6])
+# lc.insertAtTail(1)
+# lc.insertAtTail(3)
+lc.insertAtNode(3,2)
+lc.insertAtNode(6,7)
+lc.deleteNodewithData(7)
 print(lc)
 print("head: ",lc.tail.next)
 print("tail: ",lc.tail)
-print(lc.tail.next.next)
-# print(lc.tail.next.next.next.prev.prev.prev)
+print(lc.tail.next.prev.prev.next.next.next)
+# print(lc.tail.next.next.next.prev.prev.prev.prev.prev.prev.prev)
 print('len: ',len(lc))

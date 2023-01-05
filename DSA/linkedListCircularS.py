@@ -68,7 +68,6 @@ class LinkedListCS:
             current = self.tail
             while current.data != element:
                 current = current.next
-                print(current)
             # create new node
             node = Node(data)
             node.next = current.next
