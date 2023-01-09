@@ -158,6 +158,8 @@ class LinkedListS:
         return
     def MiddleOfIt(self):
         '''time complexity: O(n)'''
+        if self.tail == None:
+            return self
         n = len(self)
         mid = n//2
         node = self.head

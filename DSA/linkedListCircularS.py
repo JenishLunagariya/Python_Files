@@ -142,17 +142,82 @@ class LinkedListCS:
             curr.next = None
             del curr
             return
-        
+    def reverseIt(self):
+        '''Iterative solution'''
+        if self.tail == None or self.tail == self.tail.next:
+            return self
+        head = self.tail.next
+        prev = self.tail
+        curr = self.tail.next
+        while curr != self.tail:
+            print(curr)
+            forward = curr.next
+            curr.next = prev
+            prev = curr
+            curr = forward
+        curr.next = prev
+        self.tail = head
+        return
+    def solutionReverse(self,prev,curr):
+        # base case
+        if curr == self.tail:
+            curr.next = prev
+            return
+        else:
+            forward = curr.next
+            curr.next = prev
+            prev = curr
+            curr = forward
+            self.solutionReverse(prev,curr)
+            return
+    def ReverseIt(self):
+        '''Recursive solution'''
+        if self.tail == None or self.tail == self.tail.next:
+            return self
+        else:
+            prev = self.tail
+            curr = self.tail.next
+            head = self.tail.next
+            self.solutionReverse(prev,curr)
+            # curr.next = prev
+            self.tail = head
+            return
+    def MiddleOfIt(self):
+        if self.tail == None:
+            return self
+        n = len(self)
+        mid = n//2
+        node = self.tail.next
+        cnt=1
+        while cnt<=mid:
+            node = node.next
+            cnt+=1
+        return node
+    def MiddleOfItOptimised(self):
+        if self.tail == None:
+            return self
+        elif self.tail.next == self.tail:
+            return self.tail
+        else:
+            fast = self.tail.next.next
+            slow = self.tail.next
+            while fast!=self.tail.next:
+                fast = fast.next
+                if fast!= self.tail.next:
+                    fast = fast.next
+                slow = slow.next
+            return slow
 # lc = LinkedListCS(["a","b","c"])
-lc = LinkedListCS([1,2,3,4,5,6])
+lc = LinkedListCS([])
+# lc.ReverseIt()
 # print(lc)
 # lc.insertAtTail(5)
 # lc.insertAtNode(2,22)
 # lc.deleteNodewithData(22)
-lc.deleteNodewithPos(7)
+# lc.deleteNodewithPos(7)
 # lc.insertAtPos(6,5)
-print(lc)
-print("Head: ",lc.tail.next)
-print("tail: ",lc.tail)
-print(lc.tail.next.next.next.next.next.next)
-print("len: ",len(lc))
+print(lc.MiddleOfItOptimised())
+# print("Head: ",lc.tail.next)
+# print("tail: ",lc.tail)
+# print(lc.tail.next.next.next.next.next.next.next)
+# print("len: ",len(lc)

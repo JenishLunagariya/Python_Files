@@ -158,6 +158,76 @@ class LinkedListCD:
             current.next = None
             del current
             return
+    def reverseIt(self):
+        '''Iterative solution'''
+        if self.tail == None or self.tail == self.tail.next:
+            return self
+        else:
+            previous = self.tail
+            current = self.tail.next
+            head = self.tail.next
+            while current != self.tail:
+                forward = current.next
+                current.next = previous
+                current.prev = forward
+                previous = current
+                current = forward
+            forward = current.next
+            current.next = previous
+            current.prev = forward
+            self.tail = head
+            return
+    def solutionReverse(self,previous,current):
+        # base case
+        if current == self.tail:
+            forward = current.next
+            current.next = previous
+            current.prev = forward
+            return
+        else:
+            forward = current.next
+            current.next = previous
+            current.prev = forward
+            previous = current
+            current = forward
+            self.solutionReverse(previous,current)
+            return
+    def ReverseIt(self):
+        '''Recursive soltion'''
+        if self.tail == None or self.tail == self.tail.next:
+            return self
+        else:
+            previous = self.tail
+            current = self.tail.next
+            head = self.tail.next
+            self.solutionReverse(previous,current)
+            self.tail = head
+            return
+    def MiddleOfIt(self):
+        if self.tail == None:
+            return self
+        n = len(self)
+        mid = n//2
+        node = self.tail.next
+        cnt=1
+        while cnt<=mid:
+            node = node.next
+            cnt+=1
+        return node
+    def MiddleOfItOptimised(self):
+        if self.tail == None:
+            return self
+        elif self.tail.next == self.tail:
+            return self.tail
+        else:
+            fast = self.tail.next.next
+            slow = self.tail.next
+            while fast!=self.tail.next:
+                fast = fast.next
+                if fast!= self.tail.next:
+                    fast = fast.next
+                slow = slow.next
+            return slow
 
 lc = LinkedListCD([1,2,3,4,5,6])
 # lc.insertAtTail(1)
@@ -169,9 +239,10 @@ lc = LinkedListCD([1,2,3,4,5,6])
 # lc.insertAtPos(3,2)
 # lc.insertAtPos(6,7)
 # lc.deleteNodewithPos(7)
-print(lc)
-print("head: ",lc.tail.next)
-print("tail: ",lc.tail)
+# lc.ReverseIt()
+print(lc.MiddleOfItOptimised())
+# print("head: ",lc.tail.next)
+# print("tail: ",lc.tail)
 # print(lc.tail.next.next.next.next.next.next.next)
 # print(lc.tail.prev.prev.prev.prev.prev.prev.prev)
 # print('len: ',len(lc))

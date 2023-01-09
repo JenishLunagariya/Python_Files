@@ -154,20 +154,91 @@ class LinkedListD:
                 return
         self.deleteNodewithPos(position=cnt)
         self.insertAtPos(cnt,updated_data)
+    def reverseIt(self):
+        '''Iterative solution'''
+        if self.head==None or self.tail==self.head:
+            return self
+        else:
+            previous = None
+            current = self.head
+            self.tail = current
+            while current != None:
+                forward = current.next
+                current.next = previous
+                current.prev = forward
+                previous = current
+                current = forward
+            self.head = previous
+        return
+    def solutionReverse(self,previous,current):
+        #base case
+        if current == None:
+            self.head = previous
+            return
+        else:
+            forward = current.next
+            current.next = previous
+            current.prev = forward
+            previous = current
+            current = forward
+            self.solutionReverse(previous,current)
+            return
+    def ReverseIt(self):
+        '''Recursive solution'''
+        if self.head == None or self.head == self.tail:
+            return self
+        previous = None
+        current = self.head
+        self.tail = current
+        self.solutionReverse(previous,current)
+        return
+    def MiddleOfIt(self):
+        '''O(n)'''
+        n = len(self)
+        mid = n//2
+        node = self.head
+        cnt = 1
+        while cnt<=mid:
+            node = node.next
+            cnt+=1
+        return node
+    def MiddleOfItOptimised(self):
+        if self.head == None:
+            return self
+        elif self.head == self.tail:
+            return self.head
+        elif self.head.next == self.tail:
+            return self.tail
+        else:
+            fast = self.head.next
+            slow = self.head
+            while fast!=None:
+                fast = fast.next
+                if fast != None:
+                    fast = fast.next
+                slow = slow.next
+            return slow
 # ld = LinkedList(["a","b","c","d","e","f"])
-ld = LinkedListD([1,3,4,5,6])
-ld.insertAtHead(0)
-ld.insertAtTail(7)
-ld.insertAtPos(3,2)
-print(ld)
+ld = LinkedListD([1,2,3,4,5,6])
+# ld = LinkedListD()
+# ld.insertAtHead(0)
+# ld.insertAtTail(7)
+# ld.insertAtPos(3,2)
+# print(ld)
 # ld.insertAtPos(1,"A")
 # ld.insertAtPos(2,"B")
 # ld.insertAtPos(2,"C")
 # ld.deleteNodewithData("D")
 # print(ld)
-print("head: ",ld.head)
-print("tail: ",ld.tail)
-print("len: ",len(ld))
+# print("head: ",ld.head)
+# print("tail: ",ld.tail)
+# print("len: ",len(ld))
+# ld.ReverseIt()
+
+print(ld.MiddleOfItOptimised())
+# print("head: ",ld.head)
+# print("tail: ",ld.tail)
+# print("len: ",len(ld))
 # print(ld)
 # ld.insertAtHead("0")
 # ld.insertAtTail("1")
