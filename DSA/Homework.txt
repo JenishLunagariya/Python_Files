@@ -2,3 +2,4 @@
 -circular doubly linked list :  Done
 -reverse doubly linked list : Done
 -find middle in circular list :Done
+- floyd's cycle detection algo:
