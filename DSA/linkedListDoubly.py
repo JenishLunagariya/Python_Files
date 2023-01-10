@@ -218,6 +218,18 @@ class LinkedListD:
                     fast = fast.next
                 slow = slow.next
             return slow
+    def isCircular(self,head,head_next):
+        '''check LL is circular or not, return true/false'''
+        if head == None:
+            return True
+        else:
+            temp = head_next
+            while temp!=None and temp!= head:
+                temp = temp.next
+            if temp == head:
+                return True
+            elif temp == None:
+                return False
 # ld = LinkedList(["a","b","c","d","e","f"])
 ld = LinkedListD([1,2,3,4,5,6])
 # ld = LinkedListD()
@@ -235,7 +247,8 @@ ld = LinkedListD([1,2,3,4,5,6])
 # print("len: ",len(ld))
 # ld.ReverseIt()
 
-print(ld.MiddleOfItOptimised())
+print(ld.isCircular(ld.head,ld.head.next))
+# print(ld.MiddleOfItOptimised())
 # print("head: ",ld.head)
 # print("tail: ",ld.tail)
 # print("len: ",len(ld))

@@ -207,8 +207,23 @@ class LinkedListCS:
                     fast = fast.next
                 slow = slow.next
             return slow
+
+    def isCircular(self,head,head_next):
+        '''check LL is circular or not, return true/false'''
+        if head == None:
+            return True
+        else:
+            temp = head_next
+            while temp!=None and temp!= head:
+                temp = temp.next
+            if temp == head:
+                return True
+            elif temp == None:
+                return False
+    
 # lc = LinkedListCS(["a","b","c"])
-lc = LinkedListCS([])
+lc = LinkedListCS([1,2,3,4,5,6])
+print(lc)
 # lc.ReverseIt()
 # print(lc)
 # lc.insertAtTail(5)
@@ -216,8 +231,9 @@ lc = LinkedListCS([])
 # lc.deleteNodewithData(22)
 # lc.deleteNodewithPos(7)
 # lc.insertAtPos(6,5)
-print(lc.MiddleOfItOptimised())
+# print(lc.MiddleOfItOptimised())
 # print("Head: ",lc.tail.next)
 # print("tail: ",lc.tail)
 # print(lc.tail.next.next.next.next.next.next.next)
 # print("len: ",len(lc)
+print(lc.isCircular(lc.tail.next,lc.tail.next.next))

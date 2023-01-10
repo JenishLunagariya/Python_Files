@@ -229,6 +229,18 @@ class LinkedListCD:
                 slow = slow.next
             return slow
 
+    def isCircular(self,head,head_next):
+        '''check LL is circular or not, return true/false'''
+        if head == None:
+            return True
+        else:
+            temp = head_next
+            while temp!=None and temp!= head:
+                temp = temp.next
+            if temp == head:
+                return True
+            elif temp == None:
+                return False
 lc = LinkedListCD([1,2,3,4,5,6])
 # lc.insertAtTail(1)
 # lc.insertAtTail(3)
@@ -240,7 +252,8 @@ lc = LinkedListCD([1,2,3,4,5,6])
 # lc.insertAtPos(6,7)
 # lc.deleteNodewithPos(7)
 # lc.ReverseIt()
-print(lc.MiddleOfItOptimised())
+print(lc.isCircular(lc.tail.next,lc.tail.next.next))
+# print(lc.MiddleOfItOptimised())
 # print("head: ",lc.tail.next)
 # print("tail: ",lc.tail)
 # print(lc.tail.next.next.next.next.next.next.next)
