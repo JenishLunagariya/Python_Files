@@ -198,4 +198,4 @@ def intersectionofTwoArr(a1,a2):
     return ans
 a1 = [1,3,5,4,2,6]
 a2 = [1,4,2,8]
-print(intersectionofTwoArr(a1,a2))
+# print(intersectionofTwoArr(a1,a2))
