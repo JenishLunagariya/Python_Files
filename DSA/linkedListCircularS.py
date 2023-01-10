@@ -220,6 +220,24 @@ class LinkedListCS:
                 return True
             elif temp == None:
                 return False
+    def detectLoop(self):
+        '''check whether loop present in linear LL or not, true if loop detected'''
+        if self == None:
+            return None
+        else:
+            # create dictionary with node as key, and bool as value
+            visited = dict()
+            for node in self:
+                visited[node] = False
+            temp = self.tail.next
+            # traverse through LL
+            while temp!=None:
+                # cycle is present
+                if visited[temp] == True:
+                    return True
+                visited[temp] = True
+                temp = temp.next
+            return False
     
 # lc = LinkedListCS(["a","b","c"])
 lc = LinkedListCS([1,2,3,4,5,6])
@@ -236,4 +254,5 @@ print(lc)
 # print("tail: ",lc.tail)
 # print(lc.tail.next.next.next.next.next.next.next)
 # print("len: ",len(lc)
-print(lc.isCircular(lc.tail.next,lc.tail.next.next))
+# print(lc.isCircular(lc.tail.next,lc.tail.next.next))
+print(lc.detectLoop())
