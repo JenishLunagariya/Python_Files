@@ -143,8 +143,67 @@ class LinkedListS:
             elif temp == None:
                 return False
     
+    def detectLoop(self):
+        '''check whether loop present in linear LL or not, true if loop detected'''
+        if self == None:
+            return None
+        else:
+            # create dictionary with node as key, and bool as value
+            visited = set()
+            temp = self.head
+            # traverse through LL
+            while temp!=None:
+                # cycle is present
+                if temp in visited:
+                    return True
+                visited.add(temp)
+                temp = temp.next
+            return False
+    def FloydLoopDetection(self):
+        '''two pointer methods, one pointer moves one step at a time, other moves two steps at a time.
+        if both pointers meet, then its loop, else not loop'''
+        fast = self.head
+        slow = self.head
+        while fast!=None and slow!=None:
+            fast = fast.next
+            if fast!=None:
+                fast = fast.next
+            slow = slow.next
+            if slow == fast:
+                return True
+        return False
+    def intersectionPointInLoop(self):
+        fast = self.head
+        slow = self.head
+        while fast!=None and slow!=None:
+            fast= fast.next
+            if fast!=None:
+                fast = fast.next
+            slow = slow.next
+            if slow == fast:
+                return slow
+        # return None
+    def findStartNodeinLoop(self):
+        '''find node in LL from which loop is starting'''
+        intersection = self.intersectionPointInLoop()
 
+        fast = intersection
+        slow = self.head
+        while fast != slow:
+            fast = fast.next
+            slow = slow.next
+        return fast
+    
+    def flattenLoop(self):
+        '''removing loop from LL by flattening it'''
+        start = self.findStartNodeinLoop()
+        temp = start
+        while temp.next != start:
+            temp = temp.next
+        temp.next = None
+        
 ll = LinkedListS([1,2,3,4,5,6])
+# ll = LinkedListS()
 print(ll)
 '''
 # ReverseInKgroup
@@ -162,4 +221,37 @@ print("tail: ",ll.tail)
 '''
 # isCircular
 print(ll.isCircular(ll.head,ll.head.next))
+'''
+'''
+# detectLoop
+
+print(ll.detectLoop())
+ll.tail.next = ll.head.next.next
+print(ll.detectLoop())
+'''
+'''
+# FloydLoopDetection
+
+print(ll.FloydLoopDetection())
+ll.tail.next = ll.head.next.next
+print(ll.FloydLoopDetection())
+'''
+'''
+# find Starting Node of Loop in LL
+
+ll.tail.next = ll.head.next.next.next
+print(ll.findStartNodeinLoop())
+'''
+'''
+# removing loop from LL by flattening it
+
+ll.tail.next = ll.head.next.next
+print("loop present: ",ll.detectLoop())
+print("tail: ",ll.tail)
+print("tail_next: ",ll.tail.next)
+print("=================================")
+ll.flattenLoop()
+print("loop present: ",ll.detectLoop())
+print("tail: ",ll.tail)
+print("tail_next: ",ll.tail.next)
 '''
