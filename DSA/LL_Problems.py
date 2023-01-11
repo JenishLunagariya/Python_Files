@@ -201,10 +201,40 @@ class LinkedListS:
         while temp.next != start:
             temp = temp.next
         temp.next = None
+    def removeDuplicatesinSortedLL(self):
+        '''remove duplicates in sorted linked list'''
+        if self.head == None:
+            return None
+        curr = self.head
+        while curr.next != None:
+            if curr.data == curr.next.data:
+                nextnext = curr.next.next
+                nodetodel = curr.next
+                curr.next = nextnext
+                del nodetodel
+            else:
+                curr = curr.next
+        return
+    def removeDuplicatesinUnsortedLL(self):
+        '''remove duplicates in sorted linked list'''
+        visited = dict()
+        prev = None
+        curr = self.head
+        while curr != None:
+            if curr.data in visited.keys(): # if data in dic.keys(), remove that node
+                prev.next = curr.next
+                curr.next = None
+                curr = prev.next
+            else:
+                visited[curr.data] = True # if data not present in dic.keys(), add it to dic and move to next node
+                prev = curr
+                curr = curr.next
+        return
         
-ll = LinkedListS([1,2,3,4,5,6])
+ll = LinkedListS([1,2,3,4,3,5,2,1,6])
 # ll = LinkedListS()
 print(ll)
+
 '''
 # ReverseInKgroup
 
@@ -254,4 +284,14 @@ ll.flattenLoop()
 print("loop present: ",ll.detectLoop())
 print("tail: ",ll.tail)
 print("tail_next: ",ll.tail.next)
+'''
+'''
+# remove duplicatees in sorted LL and unsorted LL
+
+ll = LinkedListS([1,1,1,2,2,2,2,3,3,3,3,3,4,5,5,6,6,7,8,8,8])
+ll.removeDuplicatesinSortedLL()
+print(ll)
+ll = LinkedListS([1,2,3,4,3,5,2,1,6])
+ll.removeDuplicatesinUnsortedLL()
+print(ll)
 '''
