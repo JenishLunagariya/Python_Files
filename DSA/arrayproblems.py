@@ -185,8 +185,8 @@ def movenegative(arr,n):
 def unionOftwoArr(a1,a2):
     '''return union arr of both arrays'''
     return len(set(a1+a2))
-a1 = [1,3,5,4,2,6]
-a2 = [1,4,2]
+# a1 = [1,3,5,4,2,6]
+# a2 = [1,4,2]
 # print(unionOftwoArr(a1,a2))
 
 def intersectionofTwoArr(a1,a2):
@@ -196,6 +196,20 @@ def intersectionofTwoArr(a1,a2):
         if i in set(a2):
             ans.append(i)
     return ans
-a1 = [1,3,5,4,2,6]
-a2 = [1,4,2,8]
+# a1 = [1,3,5,4,2,6]
+# a2 = [1,4,2,8]
 # print(intersectionofTwoArr(a1,a2))
+
+def MaxContiguousSubarrSum(arr):
+    '''return maximum sum of contiguous subarray'''
+    '''maxsize=-9223372036854775807'''
+    from sys import maxsize
+    max_sofar = -maxsize
+    max_ending_here = 0
+    for i in range(len(arr)):
+        max_ending_here = max_ending_here + arr[i]
+        if max_ending_here < -maxsize:
+            max_ending_here = -maxsize
+        if max_ending_here > max_sofar:
+            max_sofar  = max_ending_here
+    return max_sofar
