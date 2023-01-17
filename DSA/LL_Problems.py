@@ -230,7 +230,47 @@ class LinkedListS:
                 prev = curr
                 curr = curr.next
         return
-        
+    def sortZeroOneTwosLL(self):
+        # Approach: 1
+        '''LL contains only 0s,1s & 2s, in random order. sort it out'''
+        counter = {0:0, 1:0, 2:0}
+        curr = self.head
+        # count 0s,1s & 2s and store it in dict
+        while curr!=None:
+            counter[curr.data] = counter[curr.data] + 1
+            curr = curr.next
+        # travrse through LL and change node data
+        curr = self.head
+        for key,value in counter.items():
+            val = value
+            while val!=0:
+                curr.data = key
+                curr = curr.next
+                val-=1
+        return
+    def SortZeroOneTwoOfLL(self):
+        # Approach: 2
+        '''LL contains only 0s,1s & 2s, in random order. sort it out'''
+        # BUG: This is not working
+        '''prev = self.head
+        curr = self.head.next
+        forward = self.head.next.next
+        while forward!=None:
+            if prev.data > curr.data:
+                p1 = prev
+                c1 = curr
+                for_next = forward.next
+                curr.next = prev
+                prev.next = forward
+                curr = prev
+                forward = for_next
+            else:
+                prev = curr
+                curr = forward
+                forward = forward.next'''
+        return
+
+
 ll = LinkedListS([1,2,3,4,3,5,2,1,6])
 # ll = LinkedListS()
 print(ll)
@@ -295,3 +335,9 @@ ll = LinkedListS([1,2,3,4,3,5,2,1,6])
 ll.removeDuplicatesinUnsortedLL()
 print(ll)
 '''
+
+ll = LinkedListS([0,0,1,0,1,0,1,1,2,1,2,0,2]) #[0,0,0,0,0,1,1,1,1,1,2,2,2]
+print()
+print(ll)
+ll.SortZeroOneTwoOfLL()
+print(ll)
