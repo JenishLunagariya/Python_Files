@@ -425,7 +425,7 @@ def subArr(arr):
     index = 0
     solve(arr,output,index,ans)
     return ans
-# arr = [1,2,3,4]
+# arr = [1,2,3]
 # print(subArr(arr))
 
 def solution(string,output,index,ans):
@@ -517,18 +517,16 @@ def permutationArray(arr,ans,index):
         ans = ans.append(arr)
         return
     # processing
-    for i in range(len(arr)):
+    for i in range(index,len(arr)):
         print(i)
         arr = swapPositions(arr,index,i)
         permutationArray(arr.copy(),ans,index+1)
         #backtrack to original array
         arr = swapPositions(arr,index,i)
-        if len(ans) >= factorial(len(arr)):
-            break
     return ans
-# arr = [1,2,3]
-# ans = []
-# print(permutationArray(arr,ans,0))
+arr = [1,2,3]
+ans = []
+print(permutationArray(arr,ans,0))
 
 def isSafe(x,y,n,visited,m):
     if (x>=0 and x<n) and (y>=0 and y<n) and (visited[x][y]==0 and m[x][y]==1):
