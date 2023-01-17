@@ -10,7 +10,6 @@ def searchLinear(arr, key) -> bool:
             return 1
     return 0
 arr = np.array([1,3,5,7,9,10,-1])
-
 # print(searchLinear(arr,-1))
 # end = time()
 # print(f"start:{start}, end:{end}, end-start = {(end-start)*1000}")
@@ -29,10 +28,9 @@ def searchBinary(arr,key): # input sorted array
         else:
             end = mid - 1
     return -1  # return -1 if not present
-
 # start = datetime.now()
-arr = [3,5,9,13,27,30]
-print(searchBinary(arr,13))
+# arr = [3,5,9,13,27,30]
+# print(searchBinary(arr,13))
 # end = datetime.now()
 # print(end-start)
 
@@ -42,7 +40,6 @@ def swaparrayelements(arr):
     for i in range(mid):
         arr[i], arr[-i-1] = arr[-i-1], arr[i]
     return arr
-
 # print(swaparrayelements(arr))
 
 def swapalternatearrayelements(arr) -> int:
