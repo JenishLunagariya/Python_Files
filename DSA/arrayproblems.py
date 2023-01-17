@@ -213,3 +213,197 @@ def MaxContiguousSubarrSum(arr):
         if max_ending_here > max_sofar:
             max_sofar  = max_ending_here
     return max_sofar
+
+def getMinDiff(arr,k):
+    '''arr consist of positive numbers, we can either increase or decrease each element by k.
+    return minimum difference betweeen max. and min. element of array after operation'''
+    mid = sum(arr)//len(arr)
+    low = mid - k
+    high = mid + k
+    for i in range(len(arr)):
+        if arr[i] <= low:
+            arr[i] = arr[i] + k
+        elif arr[i] >= high:
+            arr[i] = arr[i] - k
+        else:
+            if arr[i] < mid:
+                arr[i] = arr[i] + k
+            else:
+                arr[i] = arr[i] -k
+    ans = max(arr) - min(arr)
+    return ans
+# arr = [3,9,12,16,20]
+# k = 3
+# print(getMinDiff(arr,k))
+
+def minJumps(arr,index,counter):
+    '''arr consists of elements, starts from first element, move steps as per value in element'''
+    # base case
+    if index >= len(arr)-1:
+        return counter
+    elif arr[index] == 0:
+        return -1
+    counter+=1
+    index = index + arr[index]
+    return minJumps(arr,index,counter)
+# arr = [1,3,5,8,9,2,6,7,6,8,9]
+# arr = [1,4,3,2,6,7]
+# print(minJumps(arr,0,0))
+
+def merge2SortedArr(arr1,arr2,m,n):
+    '''merge two sorted arays without using extra space'''
+    for i in range(n-1,-1,-1):
+        last = arr1[m-1]
+        j = m-2
+        while (j>=0 and arr1[j]>arr2[i]):
+            arr1[j+1] = arr1[j]
+            j-=1
+        if last>arr2[i]:
+            arr1[j+1] = arr2[i]
+            arr2[i] = last
+# arr1 = [1,5,9,10,15,20]
+# arr2 = [2,3,8,13]
+# merge2SortedArr(arr1,arr2,6,4)
+# print("arr1:",arr1,"arr2:",arr2)
+
+def mergeIntervals(arr):
+    '''merge those subarrays into one subarrays which are overlaping, else leave as it is'''
+    i=0
+    while i < len(arr):
+        n = len(arr)
+        if i<n-1:
+            subarr = arr[i]
+            nextsubarr = arr[i+1]
+            if subarr[1] >= nextsubarr[0] and i<n-1:
+                # merge subarr into one
+                newarr = [subarr[0],nextsubarr[1]]
+                del arr[i:i+2]
+                arr.insert(i,newarr)
+                continue
+        i+=1
+    return arr
+# arr = [[1,3],[2,6],[8,10],[15,18]]
+# arr = [[1,4],[4,5]]
+# arr = [[0,2],[2,5],[5,8],[10,13],[13,18]]
+# print(mergeIntervals(arr))
+
+def PermutationOfArr(arr,index,ans):
+    '''returns all permutations of arr as arr
+    ex: [1,2,3] => [[1,2,3],[1,3,2], [2, 1, 3], [2, 3, 1], [3,1,2], [3,2,1]]'''
+    # base case
+    if index >= len(arr):
+        ans = ans.append(arr)
+        return
+    for i in range(index,len(arr)):
+        arr[i],arr[index] = arr[index],arr[i]
+        PermutationOfArr(arr.copy(),index+1,ans)
+        arr[i],arr[index] = arr[index],arr[i]
+    return ans
+# arr = [1,2,3]
+# ans = []
+# print(PermutationOfArr(arr,0,ans))
+
+def CountInversion(arr,n):
+    '''O(n^2)'''
+    # output = 2; ans = (2,1),(4,1),(4,3)
+    ctr = 0 
+    for i in range(n):
+        for j in range(i+1,n):
+            if arr[i] > arr[j]:
+                ctr +=1
+    return ctr
+# arr = [2,4,1,3,5]
+# arr = [2,3,4,5,6]
+# arr = [3,5,1,10,9,2,6,8] 
+# n = 8
+# print(CountInversion(arr,n))
+
+def merge(arr,start,end,mid):
+    invCount = 0
+    temp = [0 for i in range(end-start+1)]
+    index1 = start
+    index2 = mid
+    tempIndex = 0
+    while index1<mid and index2<=end:
+        if arr[index1] <= arr[index2]:
+            temp[tempIndex] = arr[index1]
+            index1+=1
+        else:
+            temp[tempIndex] = arr[index2]
+            invCount += mid-index1
+            index2+=1
+        tempIndex+=1
+    while index1<mid:
+        temp[tempIndex] = arr[index1]
+        index1+=1
+        tempIndex+=1
+    while index2<=end:
+        temp[tempIndex] = arr[index2]
+        index2+=1
+        tempIndex+=1
+    k=0
+    for x in range(start,end):
+        arr[x] = temp[k]
+        k+=1
+    return invCount
+
+def mergeSort(arr,start,end):
+    invCount = 0
+    if end>start:
+        mid = start+(end-start)//2
+        invCount = mergeSort(arr,start,mid)
+        invCount+=mergeSort(arr,mid+1,end)
+        invCount+=merge(arr,start,end,mid+1)
+    return invCount
+
+def getInversions(arr):
+    '''O(nlogn) using mergesort algorithm'''
+    return mergeSort(arr,0,len(arr)-1)
+# arr = [2,4,1,3,5] # 3
+# arr = [3,5,1,10,9,2,6,8] # 11
+# arr = [8, 4, 2, 1] # 6
+# arr = [1, 20, 6, 4, 5] # 5
+# print(getInversions(arr))
+
+def maxProfit(prices):
+    index = 0
+    buy = index
+    sell = index+1
+    profit = prices[sell]-prices[buy]
+    while sell<len(prices):
+        if prices[sell]-prices[buy]<0:
+            buy +=1
+        else:
+            sell+=1
+        if sell<len(prices):
+            if prices[sell]-prices[buy] > profit:
+                profit = prices[sell]-prices[buy]
+        # index+=1
+    return profit
+# arr = [7,1,5,3,6,4] #5
+# arr = [3,4,1,6] #5
+# arr = [7,6,4,3,1] #0
+# print(maxProfit(arr))
+
+def getPairsCounts(arr,ksum):
+    '''find all pairs whose sum equals ksum'''
+    m = [0]*10000
+    n = len(arr)
+    for i in range(n):
+        m[arr[i]] += 1
+    twice_count = 0
+    for i in range(n):
+        twice_count+=m[sum-arr[i]]
+        if sum-arr[i] == arr[i]:
+            twice_count-=1
+    return int(twice_count/2)
+
+# arr = [1,5,7,1]
+# sum = 6
+# arr = [1, 5, 7, 1, 5]
+# sum = 6
+# arr = [10, 12, 10, 15, 1, 7, 6, 5, 4, 2, 1, 1, 1]
+# sum = 11
+# arr = [1,1,1,1]
+# sum=2
+# print(getPairsCounts(arr,sum))
