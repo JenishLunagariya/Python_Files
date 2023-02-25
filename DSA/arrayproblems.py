@@ -397,7 +397,6 @@ def getPairsCounts(arr,ksum):
         if sum-arr[i] == arr[i]:
             twice_count-=1
     return int(twice_count/2)
-
 # arr = [1,5,7,1]
 # sum = 6
 # arr = [1, 5, 7, 1, 5]
@@ -407,3 +406,121 @@ def getPairsCounts(arr,ksum):
 # arr = [1,1,1,1]
 # sum=2
 # print(getPairsCounts(arr,sum))
+
+def CommonElement(arr1,arr2,arr3):
+    '''find common element in three sorted array'''
+    map = dict()
+    n1 = len(arr1)
+    n2 = len(arr2)
+    n3 = len(arr3)
+    for i in range(n1):
+        map[arr1[i]] =1
+    for j in range(n2):
+        if arr2[j] in map.keys():
+            map[arr2[j]] +=1
+        else:
+            map[arr2[j]] = 1
+    for k in range(n3):
+        if arr3[k] in map.keys():
+            map[arr3[k]] +=1
+        else:
+            map[arr3[k]] = 1
+    ans = []
+    for key,value in map.items():
+        if value >=3:
+            ans.append(key)
+    return ans
+# arr1 = [1, 5, 10, 20, 40, 80]
+# arr2 = [6, 7, 20, 80, 100]
+# arr3 = [3, 4, 15, 20, 30, 70, 80, 120]
+# print(CommonElement(arr1,arr2,arr3))
+
+def Rearrange(arr):
+    '''arr consists of negative and positive int, rearrange it so that negative and positive int
+    comes in alternate order, while mainataining original order of arr'''
+    first = 0
+    second = 1
+    n = len(arr)
+    while first < n:
+        if first%2 == 0: #even => negative val places
+            if arr[first] >=0:
+                # traverse second to find negative num
+                while arr[second] >=0:
+                    if second < n-1:
+                        second+=1
+                    else:
+                        break
+                if arr[second]<0:
+                    val = arr[second]
+                    del arr[second]
+                    arr.insert(first,val)
+                
+            else:
+                first+=1
+                second = first+1
+        else: #odd => positive val places
+            if arr[first] <0:
+                # traverse second to find positive num
+                while arr[second] < 0:
+                    if second < n-1:
+                        second+=1
+                    else:
+                        break
+                if arr[second] >=0:
+                    val = arr[second]
+                    del arr[second]
+                    arr.insert(first,val)
+            else:
+                first+=1
+                second = first+1
+        if second == n-1:
+            break
+    return arr
+
+# arr = [1, 2, 3, -4, -1, 4,-5]  #[-4, 1, -1, 2, -5, 3, 4]
+# arr = [-5, -2, 5, 2, 4, 7, 1, 8, 0, -8,-2]  #[-5, 5, -2, 2, -8, 4, -2, 7, 1, 8, 0]
+# print(Rearrange(arr))
+
+def subArrayExists(arr):
+    '''check whether there is a subarray present with 0-sum or not'''
+    n = len(arr)
+    curr = 0
+    dic = {}
+    for i in range(n):
+        curr += arr[i]
+        if curr in dic or curr == 0:
+            return True
+        dic[curr] = 1
+    return False
+# arr = [4,2,-4,1,1]
+# arr = [4,2,0,1,6]
+# print(subArrayExists(arr))
+
+def maxProduct(arr,n):
+    '''find maximum product subarray'''
+    ans = float('-inf')
+    Sum = 1
+    for i in range(n):
+        Sum*=arr[i]
+        ans = max(ans,Sum)
+        if Sum ==0:
+            Sum = 1
+    Sum = 1
+    for i in range(n-1,-1,-1):
+        Sum*=arr[i]
+        ans = max(ans,Sum)
+        if Sum == 0:
+            Sum = 1
+    return ans
+arr = [6,-3,-10,0,2]
+# arr = [0,0,-5,0,0]
+# arr  =[2, 3, 4, 5, -1, 0]
+print(maxProduct(arr,5))
+
+def findLongestConseqSubseq(arr):
+    '''find len of subsequence such that, elements in subsequence are consecutive integers'''
+    n = len(arr)
+    # TODO: complete this.
+
+arr = [2,6,1,9,4,5,3]
+arr = [1,9,3,10,4,20,2]
