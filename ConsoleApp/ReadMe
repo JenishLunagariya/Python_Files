@@ -1,1 +1,8 @@
 This console app is password storage application running on console.
+Basic idea:
+-click on exe to run app
+-txt will be in encrypted form inintially
+-by clicking on exe, exe will convert encrption into original text.
+-you will enter text in console panel to append
+-once you decide to quit by pressing q, app will convert txt file into encryption again.
+-then, app will close.
