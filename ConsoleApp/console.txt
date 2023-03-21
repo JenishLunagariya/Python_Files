@@ -1,0 +1,7 @@
+Hello there
+My name is Jenish, Just testing console application
+This is actual console app test, Let's see how its perform
+I just pressed continue to enter text into console.txt file
+This is again testing
+Because earlier its stopped working
+Now i am writing from another location, Lets see if its working or not
